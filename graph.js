@@ -34,6 +34,30 @@ class Graph {
     this.adjacencyList[v1] = this.adjacencyList[v1].filter((v) => v !== v2);
     this.adjacencyList[v2] = this.adjacencyList[v2].filter((v) => v !== v1);
   }
+
+  dfs(v) {
+    const result = [];
+    const visited = {};
+
+    const helper = (vertex) => {
+      if (!vertex) {
+        return null;
+      }
+
+      visited[vertex] = true;
+      result.push(vertex);
+
+      this.adjacencyList[vertex].forEach((neighbour) => {
+        if (!visited[neighbour]) {
+          helper(neighbour);
+        }
+      });
+    };
+
+    helper(v);
+
+    return result;
+  }
 }
 
 const g = new Graph();
